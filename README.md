@@ -34,6 +34,14 @@ Resources:
 
 ## Zsh
 
+### Select the .zshrc
+
+```bash
+cp ~/.omz.zshrc .zshrc
+# or
+cp ~/.grml.zshrc .zshrc
+```
+
 ### Install oh-my-zsh
 
 ```bash
