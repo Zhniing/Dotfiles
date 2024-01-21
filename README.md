@@ -1,5 +1,7 @@
 # Instruction
 
+[toc]
+
 ## Install dotfiles
 
 ### 1. Clone as a bare repository
@@ -83,19 +85,13 @@ git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/p
 wget https://raw.githubusercontent.com/junegunn/fzf-git.sh/main/fzf-git.sh -O ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/fzf-git.zsh
 ```
 
-## Alacritty
+## Fonts
 
-### Install fonts
-
-1. Download **Hack Nerd Font** from [the latest release](https://github.com/ryanoasis/nerd-fonts/releases/latest)
+1. Download the nerd fonts from [the latest release](https://github.com/ryanoasis/nerd-fonts/releases/latest)
 
 2. Unzip and move the `.ttf` files to `$HOME/.local/share/fonts/`
 
-3. Check the installed fonts:
-
-```bash
-fc-list
-```
+3. Check the installed fonts via `fc-list`
 
 ## Neovim
 
@@ -121,12 +117,6 @@ nvim_bin="/usr/local/bin/nvim"
 sudo update-alternatives --install /usr/bin/vi vi "$nvim_bin" 50
 sudo update-alternatives --install /usr/bin/vim vim "$nvim_bin" 50
 sudo update-alternatives --install /usr/bin/editor editor "$nvim_bin" 50
-```
-
-### Install plugins
-
-```vim
-:PackerSync
 ```
 
 ## Utilities
@@ -219,19 +209,92 @@ sudo apt install duf
 
 [bootandy/dust: A more intuitive version of du in rust](https://github.com/bootandy/dust/releases/latest)
 
-## Git
+## WeChat
 
-Install [tig](https://github.com/jonas/tig)
+### Tweak DPI
 
 ```bash
-git clone git@github.com:jonas/tig.git
-cd tig
-sudo make install prefix=/usr/local
-sudo make install-doc prefix=/usr/local  # Install the docs
+WINEPREFIX=~/.deepinwine/Deepin-WeChat deepin-wine6-stable winecfg
 ```
+
+⚠️ Unable to run when the WeChat is running
+
+#### WeChat from Spark Store
+
+```bash
+echo 1.5 > "~/.deepinwine/Spark-weixin/scale.txt"
+```
+
+## Grub
+
+### Font size is too small
+
+Reduce the resolution to make the text larger in look
+
+```bash
+GRUB_GFXMODE=800x600
+```
+
+## Touchpad support
+
+Write this to `/etc/X11/xorg.conf.d/30-touchpad.conf`
+
+```conf
+# vim: ft=conf
+
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    MatchIsTouchpad "on"
+
+    # tap-to-click
+    Option "Tapping" "on"
+
+    # Map 1/2/3-finger taps to left/right/middle button
+    Option "TappingButtonMap" "lrm"
+
+    # Reverse scrolling
+    Option "NaturalScrolling" "true"
+EndSection
+```
+
+Refer to [Tapping button re-mapping](https://wiki.archlinux.org/title/Libinput#Tapping_button_re-mapping)
+
 ## WPS
 
-WPS honors screen DPI by default. However, `export QT_SCALE_FACTOR=1.3` will
-cause some UI issues. To disable the global scale for WPS, you may write
-`unset QT_SCALE_FACTOR` to `/usr/bin/wps`. What's more, WPS can be scaled
-with `QT_FONT_DPI=240 wps`
+WPS can be scaled with `QT_FONT_DPI=240 wps`
+
+## Wifi stops working when an NTFS driver inserted
+
+Workaround: connect to the 5G wifi instead of the 2.4G wifi
+
+This [topic](https://forum.endeavouros.com/t/wifi-stops-working-while-doing-heavy-io-on-usb-3/11989) may help
+
+## Bluetooth
+
+If bluetooth disconnects immediately after connects, try to restart the service
+or reload the modules
+
+```bash
+sudo systemctl restart bluetooth.service
+sudo rmmod btusb  # and/or `btintel`
+sudo modprobe btusb  # and/or `btintel`
+```
+
+## System-wide environment
+
+- `/etc/environment`
+- `/etc/profile`
+
+## Okular
+
+Fix: missing icons
+
+Workaround: use `qt5ct` to config the icon theme [ref](https://askubuntu.com/a/1127263)
+
+```bash
+# Use qt5ct, not qt6ct
+echo "QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee -a /etc/environment > /dev/null
+# Set the icon theme
+qt5ct
+```
