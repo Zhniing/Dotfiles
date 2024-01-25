@@ -1,0 +1,13 @@
+# Files
+data.location=$HOME/.task
+
+# taskwarrior-tui
+uda.taskwarrior-tui.keyconfig.done=x
+uda.taskwarrior-tui.keyconfig.delete=d
+
+uda.taskwarrior-tui.task-report.prompt-on-undo=true
+uda.taskwarrior-tui.task-report.prompt-on-delete=true
+uda.taskwarrior-tui.task-report.prompt-on-done=true
+
+uda.taskwarrior-tui.style.report.scrollbar=white
+uda.taskwarrior-tui.selection.reverse=yes
