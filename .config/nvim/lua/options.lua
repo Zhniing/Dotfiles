@@ -14,6 +14,11 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 0
 -- Use white spaces instead of the tab for indent
 vim.o.expandtab = true
+-- Filetype specified indent length
+vim.cmd("autocmd FileType lua set tabstop=2")
+vim.cmd("autocmd FileType json set tabstop=2")
+vim.cmd("autocmd FileType xml set tabstop=2")
+
 
 -- Highlight the current line
 vim.o.cursorline = true
