@@ -194,6 +194,10 @@ eval "$(navi widget zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 
 
+# Install the alias: `fuck`
+eval $(thefuck --alias)
+
+
 # Start tmux on every shell login
 if [ -x "$(command -v tmux)" ] && [ -z "${TMUX}" ]; then
     tmux new -A -s "${USER}"
